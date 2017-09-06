@@ -1,0 +1,49 @@
+{
+	"ADRIFT":{
+		"NAME":"Absolute Drift",
+		"ID":320140
+	},
+	"CSGO":{
+		"NAME":"Counter Strike: Global Offensive",
+		"ID":730
+	},
+	"DOOM":{
+		"NAME":"DOOM",
+		"ID":379720
+	},
+	"ED":{
+		"NAME":"Elite: Dangerous",
+		"ID":359320
+	},
+	"FALLOUT4":{
+		"NAME":"Fallout 4",
+		"ID":377160
+	},
+	"FARCRY4":{
+		"NAME":"Far Cry 4",
+		"ID":298110
+	},
+	"GMOD":{
+		"NAME":"Garry's Mod",
+		"ID":4000
+	},
+	"GTAV":{
+		"NAME":"Grand Theft Auto V",
+		"ID":271590
+	},
+	"GOICARUS":{
+		"NAME":"Guns of Icarus",
+		"ID":209080
+	},
+	"HALFDEAD":{
+		"NAME":"Half Dead",
+		"ID":434730
+	},
+	"PD1":{
+		"NAME":"Payday: The Heist",
+		"ID":24240
+	},
+	"PD2":{
+		"NAME":"Payday 2",
+		"ID":218620}
+}
