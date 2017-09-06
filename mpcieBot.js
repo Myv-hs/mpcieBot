@@ -40,32 +40,26 @@ bot.on('message', message => {
 		case "HELLO":
 			SayHello();
 			break;
-		case "CRYSTAL":
-		case "TELLME":
-		case "Y/N":
-		case "8BALL":
-			CrystalBall();
-			break;
 		case "ROLL":
 			DiceRoll(args);
+			break;
+		case "HELP":
+			Help(args);
 			break;
 		default:
 			break;
 	}
 });
 
+function Help () {
+	input.reply('Bonjour, je suis mpcieBot.\nenvois ::roll pour rouler un Dé');
+}
+
 function SayHello () {
 	var greetings = ["Hello", "Hi", "Hey", "Howdy"];
 	var greetingNum = Math.floor(Math.random()*greetings.length);
 	var greeting = greetings[greetingNum];
 	input.reply(greeting);
-}
-
-function CrystalBall () {
-	var predictions = ["Sure", "Why not?", "Not likely", "You Cuck", "In your dreams, maybe...", "I wouldn't hold my breath", "LOL", "No", "Why even ask me?", "You could be that lucky", "kys", "Of Course\n...Not", "I seriously don't know"];
-	var predictionNum = Math.floor(Math.random()*predictions.length);
-	var prediction = predictions[predictionNum];
-	input.reply(prediction);
 }
 
 function DiceRoll (args) {
@@ -111,5 +105,5 @@ function Dice (arg) {
 };
 
 function LogOn () {
-	bot.login('');
+	bot.login('MzU1MDI5ODE5MjQ5MDAwNDU5.DJHZYw.jIcKtqAijdx5hNqe181hzbe7wZA');
 }
