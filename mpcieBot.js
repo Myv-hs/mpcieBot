@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const links_DATAloc = 'data/links.json';
 
 const bot = new Discord.Client();
 const prefix = "::";
@@ -45,6 +46,10 @@ bot.on('message', message => {
 			break;
 		case "HELP":
 			Help(args);
+			break;
+		case "LINK":
+		case "LINKS":
+			LinkTo(args);
 			break;
 		default:
 			break;
@@ -103,6 +108,73 @@ function Dice (arg) {
 		input.channel.send("Please use int for dice amount and quantity");
 	}		
 };
+
+function LinkTo (args) {
+	var LinkTypes = ["website", "youtube", "github", "forum"];
+	if (args.length == 0){
+		return input.channel.send("What do you want links for?");
+	} else if (args.length == 1) {
+		LinkLoad(args[0], [LinkTypes[0], LinkTypes[1], LinkTypes[2], LinkTypes[3]]);
+	} else if (args.length > 1) {
+		var singleLinks = args.slice(1);
+		var badSingleLinks = 0; 
+		for (var i=0;i<singleLinks.length; i++) {
+			if (singleLinks[i] == modePrefix+"W"){
+				singleLinks[i] = LinkTypes[0];
+				//correctSingleLinks ++;
+			} else if (singleLinks[i] == modePrefix+"YT") {
+				singleLinks[i] = LinkTypes[1];
+				//correctSingleLinks ++;
+			} else if (singleLinks[i] == modePrefix+"G") {
+				singleLinks[i] = LinkTypes[2];
+				//correctSingleLinks ++;
+			} else if (singleLinks[i] == modePrefix+"F") {
+				singleLinks[i] = LinkTypes[3];
+			} else {
+				input.channel.send("Invalid LinkType: "+singleLinks[i]);
+				singleLinks[i] = "skip";
+				badSingleLinks++;
+			}
+		}
+
+		if (badSingleLinks == 0 || singleLinks.length != 0){
+			LinkLoad(args[0], singleLinks);
+		}
+		/*var correctSingleLinksARR = [];
+		for (var i = 0; i<correctSingleLinks; i++) {
+			outText += singleLinks[i]
+		};*/
+	}
+}
+
+function LinkLoad (linkgroup, singleLinks) {
+	// var name = "Matthew";
+	// var singleLink = "youtube";
+	fs.readFile(links_DATAloc, 'utf8', function (err, data) {
+		if (err) throw err;
+		var links_DATA = JSON.parse(data);
+
+		if (links_DATA[linkgroup] == undefined) {
+			return input.channel.send(`no such LinkGroup: ${linkgroup} does not exist`);
+		}
+
+		var outText = "";
+		for (var i=0;i<singleLinks.length; i++) {
+			if (!singleLinks[i] != "skip") {
+				var linkToReturn = links_DATA[linkgroup][singleLinks[i]];
+				if (linkToReturn != undefined) {
+					outText += linkToReturn;
+					//console.log("adding Link");
+					if (i<singleLinks.length-1){
+						outText +="\n";
+						//console.log("line break");
+					}
+				}
+			}
+		}
+		input.channel.send(outText);
+	});
+}
 
 function LogOn () {
 	bot.login('');

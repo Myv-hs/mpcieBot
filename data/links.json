@@ -1,34 +1,13 @@
 {	
+	"VALENTIN":{
+		"github":"https://github.com/Raizaen"
+	},
 	"MATTHEW":{
 		"website":"http://www.rubberduckynetwork.com",
-		"youtube":"https://www.youtube.com/channel/UCtuEa4csl6NgVLrA_-P3vww\nhttps://www.youtube.com/channel/UCkl0d9uMnMZhsdAKf1e63JA",
+		"github":"https://github.com/Myv-hs",
 		"steam":"http://steamcommunity.com/id/Pepys/"
 	},
-	"PEPYS":{
-		"youtube":"https://www.youtube.com/channel/UCtuEa4csl6NgVLrA_-P3vww",
-		"steam":"http://steamcommunity.com/id/Pepys/"
-	},
-	"RDN":{
-		"website":"http://www.rubberduckynetwork.com",
-		"youtube":"https://www.youtube.com/channel/UCkl0d9uMnMZhsdAKf1e63JA"
-	},
-	"FIGHTERCLUB":{
-		"forum":"https://forums.frontier.co.uk/showthread.php/301466-Fighter-Club-the-fighting-club-for-every-skill-level",
-		"youtube":"https://www.youtube.com/playlist?list=PLj1EEEr7oCwy5vLyDOsxnQ2dv8dJzDsM9"
-	},
-	"MR.PINK":{
-		"youtube":"https://www.youtube.com/user/weerossHD",
-		"steam":"http://steamcommunity.com/id/weerossHD/"
-	},
-	"PINK":{
-		"youtube":"https://www.youtube.com/user/weerossHD",
-		"steam":"http://steamcommunity.com/id/weerossHD/"
-	},
-	"ILLCANNABILL":{
-		"website":"http://illstudios.16mb.com/"
-	},
-	"JIMSTERLING":{
-		"youtube":"https://www.youtube.com/channel/UCWCw2Sd7RlYJ2yuNVHDWNOA",
-		"website":"http://www.thejimquisition.com/"
+	"NATHAN":{
+		"github":"https://github.com/Raklure"
 	}
 }
