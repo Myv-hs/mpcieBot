@@ -105,5 +105,5 @@ function Dice (arg) {
 };
 
 function LogOn () {
-	bot.login('MzU1MDI5ODE5MjQ5MDAwNDU5.DJHZYw.jIcKtqAijdx5hNqe181hzbe7wZA');
+	bot.login('');
 }
