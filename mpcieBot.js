@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const links_DATAloc = 'data/links.json';
+const profiles_DATAloc = 'data/profiles.json';
 
 const bot = new Discord.Client();
 const prefix = "::";
@@ -47,9 +47,8 @@ bot.on('message', message => {
 		case "HELP":
 			Help(args);
 			break;
-		case "LINK":
-		case "LINKS":
-			LinkTo(args);
+		case "PROFIL":
+			Profile(args);
 			break;
 		default:
 			break;
@@ -109,27 +108,31 @@ function Dice (arg) {
 	}		
 };
 
-function LinkTo (args) {
-	var LinkTypes = ["website", "youtube", "github", "forum"];
+function Profile (args) {
+	var profileFields = ["email", "website", "youtube", "github", "link", "bio"];
 	if (args.length == 0){
-		return input.channel.send("What do you want links for?");
+		return input.channel.send("Who's profile do you want to see?");
 	} else if (args.length == 1) {
-		LinkLoad(args[0], [LinkTypes[0], LinkTypes[1], LinkTypes[2], LinkTypes[3]]);
+		ProfileLoad(args[0], [profileFields[0], profileFields[1], profileFields[2], profileFields[3], profileFields[4], profileFields[5]]);
 	} else if (args.length > 1) {
 		var singleLinks = args.slice(1);
 		var badSingleLinks = 0; 
 		for (var i=0;i<singleLinks.length; i++) {
-			if (singleLinks[i] == modePrefix+"W"){
-				singleLinks[i] = LinkTypes[0];
+			if (singleLinks[i] == modePrefix+"EML"){
+				singleLinks[i] = profileFields[0];
+				//correctSingleLinks ++;
+			} else if (singleLinks[i] == modePrefix+"WEB") {
+				singleLinks[i] = profileFields[1];
 				//correctSingleLinks ++;
 			} else if (singleLinks[i] == modePrefix+"YT") {
-				singleLinks[i] = LinkTypes[1];
+				singleLinks[i] = profileFields[2];
 				//correctSingleLinks ++;
-			} else if (singleLinks[i] == modePrefix+"G") {
-				singleLinks[i] = LinkTypes[2];
-				//correctSingleLinks ++;
-			} else if (singleLinks[i] == modePrefix+"F") {
-				singleLinks[i] = LinkTypes[3];
+			} else if (singleLinks[i] == modePrefix+"GIT") {
+				singleLinks[i] = profileFields[3];
+			} else if (singleLinks[i] == modePrefix+"LNK") {
+				singleLinks[i] = profileFields[4];
+			} else if (singleLinks[i] == modePrefix+"BIO") {
+				singleLinks[i] = profileFields[5];
 			} else {
 				input.channel.send("Invalid LinkType: "+singleLinks[i]);
 				singleLinks[i] = "skip";
@@ -138,7 +141,7 @@ function LinkTo (args) {
 		}
 
 		if (badSingleLinks == 0 || singleLinks.length != 0){
-			LinkLoad(args[0], singleLinks);
+			ProfileLoad(args[0], singleLinks);
 		}
 		/*var correctSingleLinksARR = [];
 		for (var i = 0; i<correctSingleLinks; i++) {
@@ -147,10 +150,10 @@ function LinkTo (args) {
 	}
 }
 
-function LinkLoad (linkgroup, singleLinks) {
+function ProfileLoad (linkgroup, singleLinks) {
 	// var name = "Matthew";
 	// var singleLink = "youtube";
-	fs.readFile(links_DATAloc, 'utf8', function (err, data) {
+	fs.readFile(profiles_DATAloc, 'utf8', function (err, data) {
 		if (err) throw err;
 		var links_DATA = JSON.parse(data);
 
