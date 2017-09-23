@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const profiles_DATAloc = 'data/profiles.json';
+const SD2DkeyList = 'data/keys.txt';
 
 const bot = new Discord.Client();
 const prefix = "::";
@@ -50,6 +51,9 @@ bot.on('message', message => {
 		case "PROFILE":
 		case "PROFIL":
 			Profile(args);
+			break;
+		case "SD2D_KEY":
+			GiveSD2DKey();
 			break;
 		default:
 			break;
@@ -178,6 +182,64 @@ function ProfileLoad (linkgroup, singleLinks) {
 		}
 		input.channel.send(outText);
 	});
+}
+
+function GiveSD2DKey () {
+	var user = input.author.id;
+	fs.open(SD2DkeyList, r, (err, fd) =>{
+		if (err) {
+			return console.error(err);
+		}
+		fs.read(fd, buf,0,buf.length,0,(err,bytes)=>{
+			if (err) {
+				return console.error(err);
+			}
+			var stream = buf.slice(0,bytes).toString();
+			var linesArray = stream.split("\n");
+			var keysArray = new Array();
+			for(i=0;i<linesArray.length;i++) {
+				//for (j=0;j<=1;j++) {
+					//keysArray[i][j] = linesArray.split(" ")[j];
+				//}
+				keysArray[i] = linesArray[i].split(" ");
+			}
+			var usrIndex = index2D(keysArray,1,user);
+			var freeIndex = index2D(keysArray,1,'n');
+			if (usrIndex < 0) {
+				if (freeIndex < 0) {
+					input.reply("No availiable keys sorry.")
+				} else {
+					keysArray[freeIndex][1] = user;
+					input.reply(keysArray[freeIndex][0]);
+					var newStream = "";
+					for (i=0;i<keysArray.length;i++) {
+						for (j=0;j<=1;j++) {
+							newStream += keysArray[i][j];
+							if (j==0) {
+								newStream += " ";
+							}
+						}
+						if (i!= keysArray.length-1){
+							newStream += "\n";
+						}
+					}
+					fs.write(fd, newStream, 0, (err, written, string) => {
+						if (err) return console.error(err);
+						fs.close(fd, (err)=> {
+							if (err) return console.error(err);
+						});
+					});
+				}
+			} else input.reply(keysArray[usrIndex][0]);
+		});
+	});
+}
+
+function index2D (array2D, datanum, datacheck) {
+	for (i=0;i<array2D.length;i++) {
+		if (array2D[i][datanum] == datacheck) return i;
+	}
+	return -1;
 }
 
 function LogOn () {
