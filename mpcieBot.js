@@ -48,7 +48,6 @@ bot.on('message', message => {
 		case "HELP":
 			Help(args);
 			break;
-		case "PRFL":
 		case "PROFILE":
 		case "PROFIL":
 			Profile(args);
