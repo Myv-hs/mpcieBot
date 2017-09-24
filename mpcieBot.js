@@ -1,7 +1,33 @@
+/***********************
+
+mpcieBot by Myv.hs
+
+
+comments are in french
+
+************************/
+
+/*	Ceci est engros la partie #include.
+ 	discord.js est surtout utiliser comme le iostream, mais aussi pour
+ 	ce connecter le bot au serveur.
+ 	fs est comme un iostream mais pour des fichiers, et un peu plus 
+ 	complique.
+ 	On a aussi des liens locaux vers des fichiers .txt .json et c'est la 
+ 	qu'on stocke des donnes a long terme. */
+
+
 const Discord = require('discord.js');
 const fs = require('fs');
 const profiles_DATAloc = 'data/profiles.json';
 const SD2DkeyList = 'data/keys.txt';
+
+/*	Ici on decalre des valeurs fondamenteaux.
+	bot est un class qui va attendre les evenements de Discord via node.
+	Les trois autres const sont les flags pour distinger les messages, 
+	les options, et les utiliseurs a privileges.
+	input est la varialbe globale qui contien tout l'information du
+	message.
+	r et buf sont des elements utilises par fs */
 
 const bot = new Discord.Client();
 const prefix = "::";
@@ -17,6 +43,10 @@ if (!connected) {
 	LogOn();
 }
 
+/*	console.log affiche sur la ligne de commande de la machine sur laquel
+	tourne ce script. Vu qu'il n'y a pas vraiement de fenaitre de console
+	overt, il serra mis dans un fichier nohup.out */
+
 bot.on('ready', ready =>{
 	connected = true;
 	console.log("Hello World");
@@ -27,16 +57,33 @@ bot.on('disconnect', (erMsg, code) =>{
 	connected = false;
 });
 
+/*	Ceci est la fonction qui repere les commandes parmis les messages pour 
+	ensuite les decomposer et les dechifrer 
+	Cote sythax, bot.on(evenement, fonction) est une fonction qui attends
+	un evenement puis execute un autre fonction.
+	Ici la fonction quel execute a aussi une sythaxe particuliere au js.
+	Au lieu de l'ecrire:
+	fonction truc (parametres) { faire des trucs }
+	
+	on peux racoursir un peu:
+	(parametres) => { faire des trucs } 
+
+	*/
+
 bot.on('message', message => {
 	let modRole = message.guild.roles.find("name", modName);
-	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix));
+	if (message.author.bot) return;								// si un message est ecrit par un bot on l'ignore 
+	if (!message.content.startsWith(prefix));					// si un message commence pas avec les prefix des commandes idem
 
 	input = message;
-	let inputC = message.content.toUpperCase();
-	let command = inputC.split(" ")[0];
-	command = command.slice(prefix.length);
-	let args = inputC.split(" ").slice(1);
+	let inputC = message.content.toUpperCase();					// pOuR evItER LeS PRobLemEs
+	let command = inputC.split(" ")[0];							// on prends le premier mot pour titre de commande
+	command = command.slice(prefix.length);						
+	let args = inputC.split(" ").slice(1);						// les arguments des commandes sont dans le message-{la commande}
+
+	/*	Et voici la partie qui prends la commande et l'execute.
+		switch est plus propre de else if, et en js on peu l'utiliser sur 
+		le type string */
 
 	switch (command) {
 		case "HELLO":
@@ -59,6 +106,16 @@ bot.on('message', message => {
 			break;
 	}
 });
+
+/*	Ici on toute la fonctionalite du Bot, et c'est ci-dessous que vous
+	pouvez ajouter vos fonctions.
+	le cout vers l'utilisateur de la commande est 
+	input.reply('votre reponse') mais vous pouvez aussi repondre sans @
+	la personne avec input.channel.send('votre message') 
+	
+	La majorite de mes commentaires sont les parties obsoletes de mon code.
+	Je pense que mon code devrais s'expliquer tout seul, ducoups je vous
+	laisse dechiffrer apartir d'ici, mais n'hesitez pas de me demmander. */
 
 function Help () {
 	input.reply('Bonjour, je suis mpcieBot.\nenvois ::roll pour rouler un Dé');
@@ -123,6 +180,10 @@ function Profile (args) {
 		var singleLinks = args.slice(1);
 		var badSingleLinks = 0; 
 		for (var i=0;i<singleLinks.length; i++) {
+			
+			/*	Je pense que ces else if pourraient etre remplaces par un
+				switch */
+
 			if (singleLinks[i] == modePrefix+"EML"){
 				singleLinks[i] = profileFields[0];
 				//correctSingleLinks ++;
