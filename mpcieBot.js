@@ -174,7 +174,7 @@ function Dice (arg) {
 function Profile (args) {
 	var profileFields = ["email", "website", "youtube", "github", "link", "bio"];
 	if (args.length == 0){
-		return input.channel.send("::profil Nom");
+		return input.channel.send("::profil Nom ~web ~yt ~git ~lnk ~bio");
 	} else if (args.length == 1) {
 		ProfileLoad(args[0], [profileFields[0], profileFields[1], profileFields[2], profileFields[3], profileFields[4], profileFields[5]]);
 	} else if (args.length > 1) {
