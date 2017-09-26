@@ -119,7 +119,7 @@ bot.on('message', message => {
 
 function Help () {
 	input.reply('Bonjour, je suis mpcieBot.');
-	input.channel.send(' ::roll pour rouler un Dé\n ::Hello helloWorld\n ::SD2D_KEY pour avoir une clef steam pour Space Drifters 2D')
+	input.channel.send('  ::roll 	pour rouler un Dé\n::Hello 	helloWorld\n::sd2d_Key 	pour avoir une clef steam pour Space Drifters 2D')
 }
 
 function SayHello () {
@@ -174,7 +174,7 @@ function Dice (arg) {
 function Profile (args) {
 	var profileFields = ["email", "website", "youtube", "github", "link", "bio"];
 	if (args.length == 0){
-		return input.channel.send("Who's profile do you want to see?");
+		return input.channel.send("::profil Nom");
 	} else if (args.length == 1) {
 		ProfileLoad(args[0], [profileFields[0], profileFields[1], profileFields[2], profileFields[3], profileFields[4], profileFields[5]]);
 	} else if (args.length > 1) {
@@ -305,5 +305,5 @@ function index2D (array2D, datanum, datacheck) {
 }
 
 function LogOn () {
-	bot.login('');
+	bot.login('MzU1MDI5ODE5MjQ5MDAwNDU5.DKxNlA.8YD0o9-uI1jD2EaPZz_WhWyFRgU');
 }
