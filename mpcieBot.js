@@ -118,7 +118,8 @@ bot.on('message', message => {
 	laisse dechiffrer apartir d'ici, mais n'hesitez pas de me demmander. */
 
 function Help () {
-	input.reply('Bonjour, je suis mpcieBot.\nenvois ::roll pour rouler un Dé');
+	input.reply('Bonjour, je suis mpcieBot.');
+	input.channel.send(' ::roll pour rouler un Dé\n ::Hello helloWorld\n ::SD2D_KEY pour avoir une clef steam pour Space Drifters 2D')
 }
 
 function SayHello () {
