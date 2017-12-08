@@ -338,5 +338,5 @@ function index2D (array2D, datanum, datacheck) {
 }
 
 function LogOn () {
-	bot.login('MzU1MDI5ODE5MjQ5MDAwNDU5.DQtfpA.LFgGtE5z7BFaZz1JYqjeqBqmOlo');
+	bot.login('');
 }
