@@ -1,0 +1,1 @@
+module.exports.txt ='  ::roll 	pour rouler un Dé\n::Hello 	helloWorld\n::sub		pour souscrire au notif d\'un role\n::sd2d_Key 	pour avoir une clef steam pour Space Drifters 2D'

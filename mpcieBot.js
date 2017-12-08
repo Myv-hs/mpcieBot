@@ -121,9 +121,10 @@ bot.on('message', message => {
 	laisse dechiffrer apartir d'ici, mais n'hesitez pas de me demmander. */
 
 function Help () {
+	let HelpTxt = require('./help.js').txt;
 	if(input.guild.name=="groupeSept") input.reply('Bonjour :)');
 	else input.reply("Hello I'm RNGzeus!");
-	input.channel.send('  ::roll 	pour rouler un Dé\n::Hello 	helloWorld\n::sd2d_Key 	pour avoir une clef steam pour Space Drifters 2D');
+	input.channel.send(HelpTxt);
 }
 
 function SayHello () {
