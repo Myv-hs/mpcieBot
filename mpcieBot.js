@@ -17,7 +17,7 @@ comments are in french
 "use strict";
 
 const Discord = require('discord.js');
-const Token = require('./token.js');
+const Token = require('./t.js');
 const fs = require('fs');
 const profiles_DATAloc = 'data/profiles.json';
 const SD2DkeyList = 'data/keys.txt';
