@@ -14,7 +14,7 @@ comments are in french
  	complique.
  	On a aussi des liens locaux vers des fichiers .txt .json et c'est la 
  	qu'on stocke des donnes a long terme. */
-
+"use strict";
 
 const Discord = require('discord.js');
 const fs = require('fs');
@@ -102,6 +102,8 @@ bot.on('message', message => {
 		case "SD2D_KEY":
 			GiveSD2DKey();
 			break;
+		case "SUB":
+			GamePing(args)
 		default:
 			break;
 	}
@@ -118,8 +120,9 @@ bot.on('message', message => {
 	laisse dechiffrer apartir d'ici, mais n'hesitez pas de me demmander. */
 
 function Help () {
-	input.reply('Bonjour, je suis mpcieBot.');
-	input.channel.send('  ::roll 	pour rouler un Dé\n::Hello 	helloWorld\n::sd2d_Key 	pour avoir une clef steam pour Space Drifters 2D')
+	if(input.guild.name=="groupeSept") input.reply('Bonjour :)');
+	else input.reply("Hello I'm RNGzeus!");
+	input.channel.send('  ::roll 	pour rouler un Dé\n::Hello 	helloWorld\n::sd2d_Key 	pour avoir une clef steam pour Space Drifters 2D');
 }
 
 function SayHello () {
@@ -170,6 +173,36 @@ function Dice (arg) {
 		input.channel.send("Please use int for dice amount and quantity");
 	}		
 };
+
+function addSub (role, mem) {
+	mem.addRole(role).catch(console.error);
+	input.channel.send("role added");
+}
+
+function rmSub (role, mem) {
+	mem.removeRole(role).catch(console.error);
+	input.channel.send("role removed");
+}
+
+function GamePing (args) {
+	let rm = modePrefix+"R";
+	if(args.length==0) return input.channel.send("need more args");
+	let member = input.member;
+	let rmmode = args.indexOf(rm); rmmode++;
+	let goodroles = ["csgo","fortnite","toxikk","elite"];
+	for(var i=0;i<args.length;i++) {
+		for(var j=0;j<goodroles.length;j++) {
+			if(args[i]==rm) continue;
+			if(args[i].toLowerCase()==goodroles[j]) {
+				let role = input.guild.roles.find("name", args[i].toLowerCase());
+				if(!rmmode) addSub(role,member);
+				else rmSub(role,member);
+				break;
+			}
+			if(j+1==goodroles.length) input.channel.send("invalid role: "+args[i]);
+		}
+	}
+}
 
 function Profile (args) {
 	var profileFields = ["email", "website", "youtube", "github", "link", "bio"];
@@ -305,5 +338,5 @@ function index2D (array2D, datanum, datacheck) {
 }
 
 function LogOn () {
-	bot.login('MzU1MDI5ODE5MjQ5MDAwNDU5.DKxNlA.8YD0o9-uI1jD2EaPZz_WhWyFRgU');
+	bot.login('MzU1MDI5ODE5MjQ5MDAwNDU5.DQtfpA.LFgGtE5z7BFaZz1JYqjeqBqmOlo');
 }
