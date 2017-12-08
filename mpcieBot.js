@@ -17,6 +17,7 @@ comments are in french
 "use strict";
 
 const Discord = require('discord.js');
+const Token = require('./token.js');
 const fs = require('fs');
 const profiles_DATAloc = 'data/profiles.json';
 const SD2DkeyList = 'data/keys.txt';
@@ -40,7 +41,7 @@ const r = "r+";
 var buf = new Buffer(1024);
 
 if (!connected) {
-	LogOn();
+	LogOn(Token.token);
 }
 
 /*	console.log affiche sur la ligne de commande de la machine sur laquel
@@ -189,7 +190,7 @@ function GamePing (args) {
 	if(args.length==0) return input.channel.send("need more args");
 	let member = input.member;
 	let rmmode = args.indexOf(rm); rmmode++;
-	let goodroles = ["csgo","fortnite","toxikk","elite"];
+	let goodroles = require('./gameroles.js').roles;
 	for(var i=0;i<args.length;i++) {
 		for(var j=0;j<goodroles.length;j++) {
 			if(args[i]==rm) continue;
@@ -337,6 +338,6 @@ function index2D (array2D, datanum, datacheck) {
 	return -1;
 }
 
-function LogOn () {
-	bot.login('');
+function LogOn (token) {
+	bot.login(token);
 }
