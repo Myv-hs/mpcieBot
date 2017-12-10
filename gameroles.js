@@ -4,5 +4,6 @@ module.exports.roles = [
 	"toxikk",
 	"minecraft",
 	"left4dead",
-	"elite"
+	"elite",
+	"farmingsim"
 	];
