@@ -203,9 +203,9 @@ function getLCRolesString () {
 function GamePing (args) {
 	let rolechangeint = 0;
 	let rm = modePrefix+"R";
-	if(args.length==0) return input.channel.send("need more args");
 	let member = input.member;
 	let rmmode = args.indexOf(rm); rmmode++;
+	if(args.length==0||(args.length==1 && rmmode)) return input.channel.send("need more args");
 	let goodroles = getLCRolesString();
 	for(var i=0;i<args.length;i++) {
 		for(var j=0;j<goodroles.length;j++) {
