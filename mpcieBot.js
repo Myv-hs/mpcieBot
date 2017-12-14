@@ -202,6 +202,10 @@ function rmSub (role, mem) {
 	mem.removeRole(role).catch(console.error);
 }
 
+function listSub () {
+	input.channel.send(getLCRolesString());
+}
+
 function getLCRolesString () {
 	let lcroles = new Array;
 	let allRoles = Array.from(input.guild.roles.values());
@@ -218,11 +222,14 @@ function GamePing (args) {
 	let rolechangeint = 0;
 	let rm = modePrefix+"R";
 	let cr = modePrefix+"CREATE";
+	let ls = modePrefix+"LS";
 	let member = input.member;
 	let rmmode = args.indexOf(rm); rmmode++;
 	let crmode = args.indexOf(cr); crmode++;
+	let lsmode = args.indexOf(ls); lsmode++;
 	if(args.length==0||(args.length==1&&(rmmode||crmode))) return input.channel.send("need more args");
 	if(rmmode && crmode) return input.channel.send("incompatible options");
+	if(lsmode) return listSub();
 	if(crmode) {
 		let game = args.slice(crmode);
 		game = game[0].toLowerCase();
