@@ -180,6 +180,20 @@ function Dice (arg) {
 	}		
 };
 
+function createSub (role) {
+	let userroles = Array.from(input.member.roles.values());
+	for(var i=0;i<userroles.length;i++) userroles[i]=userroles[i].name;
+	if(userroles.indexOf("mkTags")<0) return input.reply("You do not have permissions");
+	if(getLCRolesString().indexOf(role)<0) {
+		input.channel.send("creating "+role);
+		input.guild.createRole({
+			name: role,
+			permissions: [],
+			mentionable: true
+		});
+	} else input.channel.send("Role Exists");
+}
+
 function addSub (role, mem) {
 	mem.addRole(role).catch(console.error);
 }
@@ -203,9 +217,17 @@ function getLCRolesString () {
 function GamePing (args) {
 	let rolechangeint = 0;
 	let rm = modePrefix+"R";
+	let cr = modePrefix+"CREATE";
 	let member = input.member;
 	let rmmode = args.indexOf(rm); rmmode++;
-	if(args.length==0||(args.length==1 && rmmode)) return input.channel.send("need more args");
+	let crmode = args.indexOf(cr); crmode++;
+	if(args.length==0||(args.length==1&&(rmmode||crmode))) return input.channel.send("need more args");
+	if(rmmode && crmode) return input.channel.send("incompatible options");
+	if(crmode) {
+		let game = args.slice(crmode);
+		game = game[0].toLowerCase();
+		return createSub(game);
+	}
 	let goodroles = getLCRolesString();
 	for(var i=0;i<args.length;i++) {
 		for(var j=0;j<goodroles.length;j++) {
