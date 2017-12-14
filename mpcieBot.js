@@ -104,7 +104,11 @@ bot.on('message', message => {
 			GiveSD2DKey();
 			break;
 		case "SUB":
-			GamePing(args)
+			GamePing(args);
+			break;
+		case "GETLCROLES":
+			getLCRolesString();
+			break;
 		default:
 			break;
 	}
@@ -178,25 +182,37 @@ function Dice (arg) {
 
 function addSub (role, mem) {
 	mem.addRole(role).catch(console.error);
-	input.channel.send("role added");
 }
 
 function rmSub (role, mem) {
 	mem.removeRole(role).catch(console.error);
-	input.channel.send("role removed");
+}
+
+function getLCRolesString () {
+	let lcroles = new Array;
+	let allRoles = Array.from(input.guild.roles.values());
+	for(var i=0;i<allRoles.length;i++){
+		let testedRole = allRoles[i].name;
+		if(testedRole == testedRole.toLowerCase()){
+			if(testedRole != "@everyone") lcroles.push(testedRole);
+		}
+	}
+	return lcroles;
 }
 
 function GamePing (args) {
+	let rolechangeint = 0;
 	let rm = modePrefix+"R";
 	if(args.length==0) return input.channel.send("need more args");
 	let member = input.member;
 	let rmmode = args.indexOf(rm); rmmode++;
-	let goodroles = require('./gameroles.js').roles;
+	let goodroles = getLCRolesString();
 	for(var i=0;i<args.length;i++) {
 		for(var j=0;j<goodroles.length;j++) {
 			if(args[i]==rm) continue;
 			if(args[i].toLowerCase()==goodroles[j]) {
 				let role = input.guild.roles.find("name", args[i].toLowerCase());
+				rolechangeint ++;
 				if(!rmmode) addSub(role,member);
 				else rmSub(role,member);
 				break;
@@ -204,6 +220,10 @@ function GamePing (args) {
 			if(j+1==goodroles.length) input.channel.send("invalid role: "+args[i]);
 		}
 	}
+	let reply = rolechangeint+" roles ";
+	if(!rmmode) reply += "added";
+	else reply += "removed";
+	input.reply(reply);
 }
 
 function Profile (args) {
