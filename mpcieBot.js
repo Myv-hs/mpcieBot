@@ -181,6 +181,7 @@ function Dice (arg) {
 };
 
 function createSub (role) {
+	console.log("\ncreating "+role+"\n");
 	let userroles = Array.from(input.member.roles.values());
 	for(var i=0;i<userroles.length;i++) userroles[i]=userroles[i].name;
 	if(userroles.indexOf("mkTags")<0) return input.reply("You do not have permissions");
@@ -195,10 +196,12 @@ function createSub (role) {
 }
 
 function addSub (role, mem) {
+	console.log("adding "+role+" to "+mem.name);
 	mem.addRole(role).catch(console.error);
 }
 
 function rmSub (role, mem) {
+	console.log("removing "+role+" from "+mem.name);
 	mem.removeRole(role).catch(console.error);
 }
 
@@ -219,6 +222,7 @@ function getLCRolesString () {
 }
 
 function GamePing (args) {
+	cosole.log("\nGamePing is called")
 	let rolechangeint = 0;
 	let rm = modePrefix+"R";
 	let cr = modePrefix+"CREATE";
@@ -332,6 +336,7 @@ function ProfileLoad (linkgroup, singleLinks) {
 
 function GiveSD2DKey () {
 	var user = input.author.id;
+	console.log("giving "+user+" their SD2D_KEY")
 	fs.open(SD2DkeyList, r, (err, fd) =>{
 		if (err) {
 			return console.error(err);
