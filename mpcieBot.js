@@ -196,12 +196,12 @@ function createSub (role) {
 }
 
 function addSub (role, mem) {
-	console.log("adding "+role+" to "+mem.name);
+	console.log("adding "+role+" to "+mem.id);
 	mem.addRole(role).catch(console.error);
 }
 
 function rmSub (role, mem) {
-	console.log("removing "+role+" from "+mem.name);
+	console.log("removing "+role+" from "+mem.id);
 	mem.removeRole(role).catch(console.error);
 }
 
