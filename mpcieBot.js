@@ -222,7 +222,7 @@ function getLCRolesString () {
 }
 
 function GamePing (args) {
-	cosole.log("\nGamePing is called")
+	console.log("\nGamePing is called")
 	let rolechangeint = 0;
 	let rm = modePrefix+"R";
 	let cr = modePrefix+"CREATE";
