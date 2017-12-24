@@ -1,0 +1,1 @@
+module.exports.txt ='  ::roll 	pour rouler un Dé\n::Hello 	helloWorld\n::sub		pour souscrire au notif d\'un role\n::sub ~r		pour retirer les notifs d\'un role'

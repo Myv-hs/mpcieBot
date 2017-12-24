@@ -17,7 +17,7 @@ comments are in french
 "use strict";
 
 const Discord = require('discord.js');
-const Token = require('./t.js');
+const Token = require('data/t.js');
 const fs = require('fs');
 const profiles_DATAloc = 'data/profiles.json';
 const SD2DkeyList = 'data/keys.txt';
@@ -101,7 +101,7 @@ bot.on('message', message => {
 			Profile(args);
 			break;
 		case "SD2D_KEY":
-			GiveSD2DKey();
+			Sorry();
 			break;
 		case "SUB":
 			GamePing(args);
@@ -124,8 +124,12 @@ bot.on('message', message => {
 	Je pense que mon code devrais s'expliquer tout seul, ducoups je vous
 	laisse dechiffrer apartir d'ici, mais n'hesitez pas de me demmander. */
 
+function Sorry () {
+	input.channel.send("Sorry function disabled // Desole fonction desactive");
+}
+
 function Help () {
-	let HelpTxt = require('./help.js').txt;
+	let HelpTxt = require('data/help.js').txt;
 	if(input.guild.name=="groupeSept") input.reply('Bonjour :)');
 	else input.reply("Hello I'm RNGzeus!");
 	input.channel.send(HelpTxt);
