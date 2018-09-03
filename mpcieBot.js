@@ -96,15 +96,8 @@ bot.on('message', message => {
 		case "HELP":
 			Help(args);
 			break;
-		case "PROFILE":
-		case "PROFIL":
-			Profile(args);
-			break;
-		case "SD2D_KEY":
-			Sorry();
-			break;
 		case "SUB":
-			GamePing(args);
+			SubPing(args);
 			break;
 		case "GETLCROLES":
 			getLCRolesString();
@@ -225,8 +218,8 @@ function getLCRolesString () {
 	return lcroles;
 }
 
-function GamePing (args) {
-	console.log("\nGamePing is called")
+function SubPing (args) {
+	console.log("\nSubPing is called")
 	let rolechangeint = 0;
 	let rm = modePrefix+"R";
 	let cr = modePrefix+"CREATE";
@@ -261,133 +254,6 @@ function GamePing (args) {
 	if(!rmmode) reply += "added";
 	else reply += "removed";
 	input.reply(reply);
-}
-
-function Profile (args) {
-	var profileFields = ["email", "website", "youtube", "github", "link", "bio"];
-	if (args.length == 0){
-		return input.channel.send("::profil Nom ~web ~yt ~git ~lnk ~bio");
-	} else if (args.length == 1) {
-		ProfileLoad(args[0], [profileFields[0], profileFields[1], profileFields[2], profileFields[3], profileFields[4], profileFields[5]]);
-	} else if (args.length > 1) {
-		var singleLinks = args.slice(1);
-		var badSingleLinks = 0; 
-		for (var i=0;i<singleLinks.length; i++) {
-			
-			/*	Je pense que ces else if pourraient etre remplaces par un
-				switch */
-
-			if (singleLinks[i] == modePrefix+"EML"){
-				singleLinks[i] = profileFields[0];
-				//correctSingleLinks ++;
-			} else if (singleLinks[i] == modePrefix+"WEB") {
-				singleLinks[i] = profileFields[1];
-				//correctSingleLinks ++;
-			} else if (singleLinks[i] == modePrefix+"YT") {
-				singleLinks[i] = profileFields[2];
-				//correctSingleLinks ++;
-			} else if (singleLinks[i] == modePrefix+"GIT") {
-				singleLinks[i] = profileFields[3];
-			} else if (singleLinks[i] == modePrefix+"LNK") {
-				singleLinks[i] = profileFields[4];
-			} else if (singleLinks[i] == modePrefix+"BIO") {
-				singleLinks[i] = profileFields[5];
-			} else {
-				input.channel.send("Invalid LinkType: "+singleLinks[i]);
-				singleLinks[i] = "skip";
-				badSingleLinks++;
-			}
-		}
-
-		if (badSingleLinks == 0 || singleLinks.length != 0){
-			ProfileLoad(args[0], singleLinks);
-		}
-		/*var correctSingleLinksARR = [];
-		for (var i = 0; i<correctSingleLinks; i++) {
-			outText += singleLinks[i]
-		};*/
-	}
-}
-
-function ProfileLoad (linkgroup, singleLinks) {
-	// var name = "Matthew";
-	// var singleLink = "youtube";
-	fs.readFile(profiles_DATAloc, 'utf8', function (err, data) {
-		if (err) throw err;
-		var links_DATA = JSON.parse(data);
-
-		if (links_DATA[linkgroup] == undefined) {
-			return input.channel.send(`no such LinkGroup: ${linkgroup} does not exist`);
-		}
-
-		var outText = "";
-		for (var i=0;i<singleLinks.length; i++) {
-			if (!singleLinks[i] != "skip") {
-				var linkToReturn = links_DATA[linkgroup][singleLinks[i]];
-				if (linkToReturn != undefined) {
-					outText += linkToReturn;
-					//console.log("adding Link");
-					if (i<singleLinks.length-1){
-						outText +="\n";
-						//console.log("line break");
-					}
-				}
-			}
-		}
-		input.channel.send(outText);
-	});
-}
-
-function GiveSD2DKey () {
-	var user = input.author.id;
-	console.log("giving "+user+" their SD2D_KEY")
-	fs.open(SD2DkeyList, r, (err, fd) =>{
-		if (err) {
-			return console.error(err);
-		}
-		fs.read(fd, buf,0,buf.length,0,(err,bytes)=>{
-			if (err) {
-				return console.error(err);
-			}
-			var stream = buf.slice(0,bytes).toString();
-			var linesArray = stream.split("\n");
-			var keysArray = new Array();
-			for(i=0;i<linesArray.length;i++) {
-				//for (j=0;j<=1;j++) {
-					//keysArray[i][j] = linesArray.split(" ")[j];
-				//}
-				keysArray[i] = linesArray[i].split(" ");
-			}
-			var usrIndex = index2D(keysArray,1,user);
-			var freeIndex = index2D(keysArray,1,'n');
-			if (usrIndex < 0) {
-				if (freeIndex < 0) {
-					input.reply("No availiable keys sorry.")
-				} else {
-					keysArray[freeIndex][1] = user;
-					input.reply(keysArray[freeIndex][0]);
-					var newStream = "";
-					for (i=0;i<keysArray.length;i++) {
-						for (j=0;j<=1;j++) {
-							newStream += keysArray[i][j];
-							if (j==0) {
-								newStream += " ";
-							}
-						}
-						if (i!= keysArray.length-1){
-							newStream += "\n";
-						}
-					}
-					fs.write(fd, newStream, 0, (err, written, string) => {
-						if (err) return console.error(err);
-						fs.close(fd, (err)=> {
-							if (err) return console.error(err);
-						});
-					});
-				}
-			} else input.reply(keysArray[usrIndex][0]);
-		});
-	});
 }
 
 function index2D (array2D, datanum, datacheck) {
