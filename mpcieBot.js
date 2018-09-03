@@ -17,10 +17,8 @@ comments are in french
 "use strict";
 
 const Discord = require('discord.js');
-const Token = require('data/t.js');
+const Token = require('./t.js');
 const fs = require('fs');
-const profiles_DATAloc = 'data/profiles.json';
-const SD2DkeyList = 'data/keys.txt';
 
 /*	Ici on decalre des valeurs fondamenteaux.
 	bot est un class qui va attendre les evenements de Discord via node.
@@ -122,7 +120,7 @@ function Sorry () {
 }
 
 function Help () {
-	let HelpTxt = require('data/help.js').txt;
+	let HelpTxt = require('./data/help.js').txt;
 	if(input.guild.name=="groupeSept") input.reply('Bonjour :)');
 	else input.reply("Hello I'm RNGzeus!");
 	input.channel.send(HelpTxt);
