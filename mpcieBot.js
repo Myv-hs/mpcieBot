@@ -191,8 +191,12 @@ function createSub (role) {
 }
 
 function addSub (role, mem) {
+	if(role=="l1") role="L1";
+	if(role=="l2") role="L2";
+	if(role=="l3") role="L3";
 	console.log("adding "+role+" to "+mem.id);
 	mem.addRole(role).catch(console.error);
+
 }
 
 function rmSub (role, mem) {
