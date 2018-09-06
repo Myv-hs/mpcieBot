@@ -102,6 +102,17 @@ bot.on('message', message => {
 	}
 });
 
+bot.on('messageReactionAdd', (reaction, user) =>{
+	let messageID = reaction.message.id;
+	if(messageID == '465561275523661824'){ //message d'inscription
+		console.log("Reacted to Incription Post");
+		if(reaction.emoji.name==="1⃣") user.addRole("L1").catch(console.error);
+		else if(reaction.emoji.name==="2⃣") user.addRole("L2").catch(console.error);
+		else if(reaction.emoji.name==="3⃣") user.addRole("L3").catch(console.error);
+	}
+});
+
+
 /*	Ici on toute la fonctionalite du Bot, et c'est ci-dessous que vous
 	pouvez ajouter vos fonctions.
 	le cout vers l'utilisateur de la commande est 
