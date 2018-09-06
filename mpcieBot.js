@@ -56,9 +56,9 @@ bot.on('disconnect', (erMsg, code) =>{
 	connected = false;
 });
 
-/*	Ceci est la fonction qui repere les commandes parmis les messages pour 
-	ensuite les decomposer et les dechifrer 
-	Cote sythax, bot.on(evenement, fonction) est une fonction qui attends
+/*	Ceci est la fonction qui repere les commandes parmis les messages
+
+	bot.on(evenement, fonction) est une fonction qui attends
 	un evenement puis execute un autre fonction.
 	Ici la fonction quel execute a aussi une sythaxe particuliere au js.
 	Au lieu de l'ecrire:
@@ -75,8 +75,8 @@ bot.on('message', message => {
 	if (!message.content.startsWith(prefix));					// si un message commence pas avec les prefix des commandes idem
 
 	input = message;
-	let inputC = message.content.toUpperCase();					// pOuR evItER LeS PRobLemEs
-	let command = inputC.split(" ")[0];							// on prends le premier mot pour titre de commande
+	//let inputC = message.content.toUpperCase();					// pOuR evItER LeS PRobLemEs
+	let command = inputC.split(" ")[0].toUpperCase();				// on prends le premier mot pour titre de commande
 	command = command.slice(prefix.length);						
 	let args = inputC.split(" ").slice(1);						// les arguments des commandes sont dans le message-{la commande}
 
@@ -96,9 +96,6 @@ bot.on('message', message => {
 			break;
 		case "SUB":
 			SubPing(args);
-			break;
-		case "GETLCROLES":
-			getLCRolesString();
 			break;
 		default:
 			break;
@@ -122,7 +119,7 @@ function Sorry () {
 function Help () {
 	let HelpTxt = require('./data/help.js').txt;
 	if(input.guild.name=="groupeSept") input.reply('Bonjour :)');
-	else input.reply("Hello I'm RNGzeus!");
+	else input.reply("Hello I'm MPCIEbot!");
 	input.channel.send(HelpTxt);
 }
 
@@ -177,9 +174,11 @@ function Dice (arg) {
 
 function createSub (role) {
 	console.log("\ncreating "+role+"\n");
+	
 	let userroles = Array.from(input.member.roles.values());
 	for(var i=0;i<userroles.length;i++) userroles[i]=userroles[i].name;
 	if(userroles.indexOf("mkTags")<0) return input.reply("You do not have permissions");
+	
 	if(getLCRolesString().indexOf(role)<0) {
 		input.channel.send("creating "+role);
 		input.guild.createRole({
@@ -191,9 +190,6 @@ function createSub (role) {
 }
 
 function addSub (role, mem) {
-	if(role=="l1") role="L1";
-	if(role=="l2") role="L2";
-	if(role=="l3") role="L3";
 	console.log("adding "+role+" to "+mem.id);
 	mem.addRole(role).catch(console.error);
 
@@ -223,16 +219,22 @@ function getLCRolesString () {
 function SubPing (args) {
 	console.log("\nSubPing is called")
 	let rolechangeint = 0;
-	let rm = modePrefix+"R";
-	let cr = modePrefix+"CREATE";
-	let ls = modePrefix+"LS";
-	let member = input.member;
+
+	let rm = modePrefix+"rm";
+	let cr = modePrefix+"new";
+	let ls = modePrefix+"ls";
+	
 	let rmmode = args.indexOf(rm); rmmode++;
 	let crmode = args.indexOf(cr); crmode++;
 	let lsmode = args.indexOf(ls); lsmode++;
+
+	let member = input.member;
+	
 	if(args.length==0||(args.length==1&&(rmmode||crmode))) return input.channel.send("need more args");
 	if(rmmode && crmode) return input.channel.send("incompatible options");
+	
 	if(lsmode) return listSub();
+	
 	if(crmode) {
 		let game = args.slice(crmode);
 		game = game[0].toLowerCase();
