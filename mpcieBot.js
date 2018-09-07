@@ -129,13 +129,13 @@ bot.on('raw', async event => {
 });
 
 bot.on('messageReactionAdd', async (reaction, user) =>{
-	console.log("reactionAdded");
+	//console.log("reactionAdded");
 	let messageID = reaction.message.id;
 	let mem = await reaction.message.guild.fetchMember(user);
 	let roles = reaction.message.guild.roles;
 
 	if(messageID == '465561275523661824'){ //message d'inscription
-		console.log("Reacted to Incription Post");
+		console.log(mem.user.name+" Reacted to Incription Post");
 		if(reaction.emoji.name==="1⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
 		else if(reaction.emoji.name==="2⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
 		else if(reaction.emoji.name==="3⃣") mem.addRole(roles.find("name","L3")).catch(console.error);
