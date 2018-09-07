@@ -52,7 +52,7 @@ bot.on('ready', ready =>{
 });
 
 bot.on('disconnect', (erMsg, code) =>{
-	console.log("-=- Disconnect from Discord -- code: ", code, " -- erMsg: ", erMsg, " -=-")
+	console.log("-=- Disconnect from Discord -- code: ", code, " -- erMsg: ", erMsg, " -=-");
 	connected = false;
 });
 
@@ -75,7 +75,7 @@ bot.on('message', message => {
 	if (!message.content.startsWith(prefix));					// si un message commence pas avec les prefix des commandes idem
 
 	input = message;
-	//let inputC = message.content.toUpperCase();					// pOuR evItER LeS PRobLemEs
+	let inputC = message.content.toUpperCase();					// pOuR evItER LeS PRobLemEs
 	let command = inputC.split(" ")[0].toUpperCase();				// on prends le premier mot pour titre de commande
 	command = command.slice(prefix.length);						
 	let args = inputC.split(" ").slice(1);						// les arguments des commandes sont dans le message-{la commande}
@@ -102,13 +102,43 @@ bot.on('message', message => {
 	}
 });
 
-bot.on('messageReactionAdd', (reaction, user) =>{
+const events = {
+	MESSAGE_REACTION_ADD: 'messageReactionAdd',
+	MESSAGE_REACTION_REMOVE: 'messageReactionRemove',
+};
+
+bot.on('raw', async event => {
+	if (!events.hasOwnProperty(event.t)) return;
+
+	const { d: data } = event;
+	const user = bot.users.get(data.user_id);
+	const channel = bot.channels.get(data.channel_id) || await user.createDM();
+
+	if (channel.messages.has(data.message_id)) return;
+
+	const message = await channel.fetchMessage(data.message_id);
+	const emojiKey = (data.emoji.id) ? `${data.emoji.name}:${data.emoji.id}` : data.emoji.name;
+	let reaction = message.reactions.get(emojiKey);
+
+	if (!reaction) {
+		const emoji = new Discord.Emoji(bot.guilds.get(data.guild_id), data.emoji);
+		reaction = new Discord.MessageReaction(message, emoji, 1, data.user_id === bot.user.id);
+	}
+
+	bot.emit(events[event.t], reaction, user);
+});
+
+bot.on('messageReactionAdd', async (reaction, user) =>{
+	console.log("reactionAdded");
 	let messageID = reaction.message.id;
+	let mem = await reaction.message.guild.fetchMember(user);
+	let roles = reaction.message.guild.roles;
+
 	if(messageID == '465561275523661824'){ //message d'inscription
 		console.log("Reacted to Incription Post");
-		if(reaction.emoji.name==="1⃣") user.addRole("L1").catch(console.error);
-		else if(reaction.emoji.name==="2⃣") user.addRole("L2").catch(console.error);
-		else if(reaction.emoji.name==="3⃣") user.addRole("L3").catch(console.error);
+		if(reaction.emoji.name==="1⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
+		else if(reaction.emoji.name==="2⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
+		else if(reaction.emoji.name==="3⃣") mem.addRole(roles.find("name","L3")).catch(console.error);
 	}
 });
 
