@@ -135,10 +135,24 @@ bot.on('messageReactionAdd', async (reaction, user) =>{
 	let roles = reaction.message.guild.roles;
 
 	if(messageID == '465561275523661824'){ //message d'inscription
-		console.log(mem.user.name+" Reacted to Incription Post");
+		console.log(user.username+" ++ Year role :"+reaction.emoji.name);
 		if(reaction.emoji.name==="1⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
 		else if(reaction.emoji.name==="2⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
 		else if(reaction.emoji.name==="3⃣") mem.addRole(roles.find("name","L3")).catch(console.error);
+	}
+});
+
+bot.on('messageReactionRemove', async (reaction, user) =>{
+	//console.log("reactionAdded");
+	let messageID = reaction.message.id;
+	let mem = await reaction.message.guild.fetchMember(user);
+	let roles = reaction.message.guild.roles;
+
+	if(messageID == '465561275523661824'){ //message d'inscription
+		console.log(user.username+" -- year role :"+reaction.emoji.name);
+		if(reaction.emoji.name==="1⃣") mem.removeRole(roles.find("name","L1")).catch(console.error);
+		else if(reaction.emoji.name==="2⃣") mem.removeRole(roles.find("name","L2")).catch(console.error);
+		else if(reaction.emoji.name==="3⃣") mem.removeRole(roles.find("name","L3")).catch(console.error);
 	}
 });
 
@@ -221,7 +235,7 @@ function createSub (role) {
 	if(userroles.indexOf("mkTags")<0) return input.reply("You do not have permissions");
 	
 	if(getLCRolesString().indexOf(role)<0) {
-		input.channel.send("creating "+role);
+		input.channel.send("creating LCrole : "+role);
 		input.guild.createRole({
 			name: role,
 			permissions: [],
@@ -231,13 +245,13 @@ function createSub (role) {
 }
 
 function addSub (role, mem) {
-	console.log("adding "+role+" to "+mem.id);
+	console.log(mem.user.username+" ++ LCrole :"+role.name);
 	mem.addRole(role).catch(console.error);
 
 }
 
 function rmSub (role, mem) {
-	console.log("removing "+role+" from "+mem.id);
+	console.log(mem.user.username+" -- LCrole : "+role.name);
 	mem.removeRole(role).catch(console.error);
 }
 
@@ -261,9 +275,9 @@ function SubPing (args) {
 	console.log("\nSubPing is called")
 	let rolechangeint = 0;
 
-	let rm = modePrefix+"rm";
-	let cr = modePrefix+"new";
-	let ls = modePrefix+"ls";
+	let rm = modePrefix+"RM";
+	let cr = modePrefix+"NEW";
+	let ls = modePrefix+"LS";
 	
 	let rmmode = args.indexOf(rm); rmmode++;
 	let crmode = args.indexOf(cr); crmode++;
@@ -272,7 +286,7 @@ function SubPing (args) {
 	let member = input.member;
 	
 	if(args.length==0||(args.length==1&&(rmmode||crmode))) return input.channel.send("need more args");
-	if(rmmode && crmode) return input.channel.send("incompatible options");
+	if(rmmode && crmode) return input.channel.send("rm and new are incompatible options");
 	
 	if(lsmode) return listSub();
 	
