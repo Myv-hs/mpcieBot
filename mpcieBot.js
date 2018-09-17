@@ -139,6 +139,8 @@ bot.on('messageReactionAdd', async (reaction, user) =>{
 		if(reaction.emoji.name==="1⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
 		else if(reaction.emoji.name==="2⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
 		else if(reaction.emoji.name==="3⃣") mem.addRole(roles.find("name","L3")).catch(console.error);
+		else if(reaction.emoji.name==="🇲") mem.addRole(roles.find("name","Master")).catch(console.error);
+		else if(reaction.emoji.name==="🇽") mem.addRole(roles.find("name","eX")).catch(console.error);
 	}
 });
 
@@ -153,6 +155,8 @@ bot.on('messageReactionRemove', async (reaction, user) =>{
 		if(reaction.emoji.name==="1⃣") mem.removeRole(roles.find("name","L1")).catch(console.error);
 		else if(reaction.emoji.name==="2⃣") mem.removeRole(roles.find("name","L2")).catch(console.error);
 		else if(reaction.emoji.name==="3⃣") mem.removeRole(roles.find("name","L3")).catch(console.error);
+		else if(reaction.emoji.name==="🇲") mem.removeRole(roles.find("name","Master")).catch(console.error);
+		else if(reaction.emoji.name==="🇽") mem.removeRole(roles.find("name","eX")).catch(console.error);
 	}
 });
 
