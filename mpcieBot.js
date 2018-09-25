@@ -183,7 +183,7 @@ function Help () {
 }
 
 function SayHello () {
-	var greetings = ["Hello", "Hi", "Hey", "Howdy", "Bonjour"];
+	var greetings = ["Hello", "Hi", "Hey", "Howdy", "Bonjour" , "Salut"];
 	var greetingNum = Math.floor(Math.random()*greetings.length);
 	var greeting = greetings[greetingNum];
 	input.reply(greeting);
