@@ -1,8 +1,8 @@
 {
-  "name": "mpcieBot",
+  "name": "pcBot",
   "version": "1.0.0",
   "description": "",
-  "main": "mpcieBot.js",
+  "main": "pcBot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
