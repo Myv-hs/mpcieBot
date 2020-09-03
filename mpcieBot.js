@@ -136,11 +136,11 @@ bot.on('messageReactionAdd', async (reaction, user) =>{
 
 	if(messageID == '698873635846488134'){ //message d'inscription
 		console.log(user.username+" ++ Year role :"+reaction.emoji.name);
-		if(reaction.emoji.name==="1⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
-		else if(reaction.emoji.name==="2⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
-		else if(reaction.emoji.name==="3⃣") mem.addRole(roles.find("name","L3")).catch(console.error);
+		if(reaction.emoji.name==="1️⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
+		else if(reaction.emoji.name==="2️⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
+		else if(reaction.emoji.name==="3️⃣") mem.addRole(roles.find("name","L3")).catch(console.error);
 		else if(reaction.emoji.name==="🇲") mem.addRole(roles.find("name","Master")).catch(console.error);
-		else if(reaction.emoji.name==="🇽") mem.addRole(roles.find("name","eX")).catch(console.error);
+		else console.log(reaction.emoji.name+"\tunkown");
 	}
 });
 
@@ -152,9 +152,9 @@ bot.on('messageReactionRemove', async (reaction, user) =>{
 
 	if(messageID == '698873635846488134'){ //message d'inscription
 		console.log(user.username+" -- year role :"+reaction.emoji.name);
-		if(reaction.emoji.name==="1⃣") mem.removeRole(roles.find("name","L1")).catch(console.error);
-		else if(reaction.emoji.name==="2⃣") mem.removeRole(roles.find("name","L2")).catch(console.error);
-		else if(reaction.emoji.name==="3⃣") mem.removeRole(roles.find("name","L3")).catch(console.error);
+		if(reaction.emoji.name==="1️⃣") mem.removeRole(roles.find("name","L1")).catch(console.error);
+		else if(reaction.emoji.name==="2️⃣") mem.removeRole(roles.find("name","L2")).catch(console.error);
+		else if(reaction.emoji.name==="3️⃣") mem.removeRole(roles.find("name","L3")).catch(console.error);
 		else if(reaction.emoji.name==="🇲") mem.removeRole(roles.find("name","Master")).catch(console.error);
 		else if(reaction.emoji.name==="🇽") mem.removeRole(roles.find("name","eX")).catch(console.error);
 	}
