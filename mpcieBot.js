@@ -134,7 +134,7 @@ bot.on('messageReactionAdd', async (reaction, user) =>{
 	let mem = await reaction.message.guild.fetchMember(user);
 	let roles = reaction.message.guild.roles;
 
-	if(messageID == '465561275523661824'){ //message d'inscription
+	if(messageID == '698873635846488134'){ //message d'inscription
 		console.log(user.username+" ++ Year role :"+reaction.emoji.name);
 		if(reaction.emoji.name==="1⃣") mem.addRole(roles.find("name","L1")).catch(console.error);
 		else if(reaction.emoji.name==="2⃣") mem.addRole(roles.find("name","L2")).catch(console.error);
@@ -150,7 +150,7 @@ bot.on('messageReactionRemove', async (reaction, user) =>{
 	let mem = await reaction.message.guild.fetchMember(user);
 	let roles = reaction.message.guild.roles;
 
-	if(messageID == '465561275523661824'){ //message d'inscription
+	if(messageID == '698873635846488134'){ //message d'inscription
 		console.log(user.username+" -- year role :"+reaction.emoji.name);
 		if(reaction.emoji.name==="1⃣") mem.removeRole(roles.find("name","L1")).catch(console.error);
 		else if(reaction.emoji.name==="2⃣") mem.removeRole(roles.find("name","L2")).catch(console.error);
