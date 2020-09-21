@@ -56,29 +56,28 @@ bot.on('disconnect', (erMsg, code) =>{
 
 /*	Ceci est la fonction qui repère les commandes parmis les messages
 
-	bot.on(evenement, fonction) est une fonction qui attends
-	un evenement puis execute un autre fonction.
-	Ici la fonction quel execute a aussi une sythaxe particuliere au js.
+	bot.on(evenement, fonction) est une fonction qui attends un événement
+	puis execute une autre fonction.
+	Ici la fonction quel exécute à aussi une syntaxe particuliere au js.
 	Au lieu de l'ecrire:
 	fonction truc (parametres) { faire des trucs }
 	
 	on peux racoursir un peu:
 	(parametres) => { faire des trucs } 
-
+	aka arrows functions
 	*/
 
 bot.on('message', message => {
 	let modRole = message.guild.roles.find("name", modName);
-	if (message.author.bot) return;								// si un message est ecrit par un bot on l'ignore 
-	if (!message.content.startsWith(prefix));					// si un message commence pas avec les prefix des commandes idem
-
+	if (message.author.bot) return;							// si un message est écrit par un bot on l'ignore 
+	if (!message.content.startsWith(prefix));					// si un message ne commence pas avec les prefix des commandes on ignore le message
 	input = message;
-	let inputC = message.content.toUpperCase();					// pOuR evItER LeS PRobLemEs
+	let inputC = message.content.toUpperCase();					// Pour désensibiliser le bot à la casse ( a == A )
 	let command = inputC.split(" ")[0].toUpperCase();				// on prends le premier mot pour titre de commande
 	command = command.slice(prefix.length);						
 	let args = inputC.split(" ").slice(1);						// les arguments des commandes sont dans le message-{la commande}
 
-	/*	Et voici la partie qui prends la commande et l'execute.
+	/*	Et voici la partie qui prends la commande et l'exécute.
 		switch est plus propre de else if, et en js on peu l'utiliser sur 
 		le type string */
 
@@ -143,7 +142,6 @@ bot.on('messageReactionAdd', async (reaction, user) =>{
 });
 
 bot.on('messageReactionRemove', async (reaction, user) =>{
-	//console.log("reactionAdded");
 	let messageID = reaction.message.id;
 	let mem = await reaction.message.guild.fetchMember(user);
 	let roles = reaction.message.guild.roles;
@@ -189,8 +187,6 @@ function SayHello () {
 
 function DiceRoll (args) {
 	var roll=0;
-	//var diceSize=6;
-	//var diceNum=1;
 	
 	if ((args[0] > 9999 || args[1] > 9999)) { // && args[2] != modePrefix+"F"
 		var forcer = modePrefix+"F";
