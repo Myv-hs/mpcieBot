@@ -7,26 +7,24 @@ comments are in french
 
 ************************/
 
-/*	Ceci est engros la partie #include.
- 	discord.js est surtout utiliser comme le iostream, mais aussi pour
- 	ce connecter le bot au serveur.
- 	fs est comme un iostream mais pour des fichiers, et un peu plus 
- 	complique.
+/*	Ceci est en gros la partie #include.
+ 	discord.js est surtout utilisé comme le iostream, mais aussi pour se connecter le bot au serveur.
+ 	fs(FileSystem) est comme un iostream mais pour des fichiers serveurs, et un peu plus compliqué.
  	On a aussi des liens locaux vers des fichiers .txt .json et c'est la 
- 	qu'on stocke des donnes a long terme. */
+ 	qu'on stocke des données à long terme. */
 "use strict";
 
 const Discord = require('discord.js');
 const Token = require('./t.js');
 const fs = require('fs');
 
-/*	Ici on decalre des valeurs fondamenteaux.
-	bot est un class qui va attendre les evenements de Discord via node.
+/*	Ici on déclare des valeurs fondamentales.
+	bot est une classe qui va attendre des événements de Discord via node.
 	Les trois autres const sont les flags pour distinger les messages, 
-	les options, et les utiliseurs a privileges.
-	input est la varialbe globale qui contien tout l'information du
+	les options, et les utiliseurs à privileges.
+	input est la variable globale qui contient tout l'information du
 	message.
-	r et buf sont des elements utilises par fs */
+	r et buf sont des elements utilises par la librairie fs */
 
 const bot = new Discord.Client();
 const prefix = "::";
@@ -43,8 +41,8 @@ if (!connected) {
 }
 
 /*	console.log affiche sur la ligne de commande de la machine sur laquel
-	tourne ce script. Vu qu'il n'y a pas vraiement de fenaitre de console
-	overt, il serra mis dans un fichier nohup.out */
+	tourne ce script. Vu qu'il n'y a pas vraiement de fenêtre de console
+	ouvert, il serra mis dans un fichier nohup.out */
 
 bot.on('ready', ready =>{
 	connected = true;
@@ -56,7 +54,7 @@ bot.on('disconnect', (erMsg, code) =>{
 	connected = false;
 });
 
-/*	Ceci est la fonction qui repere les commandes parmis les messages
+/*	Ceci est la fonction qui repère les commandes parmis les messages
 
 	bot.on(evenement, fonction) est une fonction qui attends
 	un evenement puis execute un autre fonction.
